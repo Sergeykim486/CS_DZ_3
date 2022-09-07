@@ -1,17 +1,18 @@
-﻿int choice = 1;
+﻿// =========================== общие функции ===========================
+
+int choice = 1;
 int CurrentLine = 1;
 string ex = "n";
-
 string[] ListMenu = {
-"1 menu line",
-"2 menu line",
-"3 menu line",
-"4 menu line",
-"ВЫХОД ИЗ ПРОГРАММЫ"
-};
+"  Задача 19: Является ли число полиндромом?                       ",
+"  Задача 21: Расстояние между 2 точами (3D)                       ",
+"  Задача 23: Возвести числа от 1 до N в куб                       ",
+"  Задача 21*: Расстояние между 2 точками в N-мерном пространстве  ",
+"  ВЫХОД ИЗ ПРОГРАММЫ                                              "};
 Console.ForegroundColor = ConsoleColor.White;
 Console.BackgroundColor = ConsoleColor.Black;
 
+// ОТРИСОВКА МЕНЮ
 void menu()
 {
     Console.ForegroundColor = ConsoleColor.White;
@@ -19,27 +20,38 @@ void menu()
     Console.WriteLine(choice);
     int i = 0;
     Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("═══════════════════  Г Л А В Н О Е   М Е Н Ю  ════════════════════\n");
+        Console.ForegroundColor = ConsoleColor.White;    
     while (i < ListMenu.Length)
     {
         CurrentLine = i + 1;
         if (choice == CurrentLine)
         {
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Green;
             Console.Write($"{ListMenu[i]}\n");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.BackgroundColor = ConsoleColor.Black;
         }
         else
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write($"{ListMenu[i]}\n");
         }
         i++;
     }
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.WriteLine("\n"+
+    "╔════════════════════════════════════════════════╤═══════════════╗\n"+
+    "║  Используйте [стрелки] для навигации.          │   ▲ : Вверх   ║\n"+
+    "║  [ENTER] - Выбор выделенного пункта            │   ▼ : Вниз    ║\n"+
+    "╚════════════════════════════════════════════════╧═══════════════╝\n");
+    Console.BackgroundColor = ConsoleColor.Black;
 }
 
+// ПАУЗА ДЛЯ ЧТЕНИЯ ВЫВОДИМЫХ ДАННЫХ
 void pause()
 {
     Console.WriteLine("Для продолжения нажмите любую клавишу...");
@@ -48,35 +60,50 @@ void pause()
     menu();
 }
 
+// ВЫХОД ИЗ ПРОГРАММЫ
 void ext()
 {
     Console.Clear();
 AskAgayn:
     Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("\n=========================================================\n" +
-    "    Вы уверены что хотите закрыть программу?\n" +
-    "    Клавиша [ y ] - Да\n" +
-    "    Клавиша [ n ] - Нет" +
-    "\n=========================================================\n");
+    Console.WriteLine("\n"+
+    "  ╔══════════════════════════════════════════════════════╗\n" +
+    "  ║      Вы уверены что хотите закрыть программу?        ║\n" +
+    "  ║              [ENTER] Да     [ESC] Нет                ║\n" +
+    "  ╚══════════════════════════════════════════════════════╝\n");
     Console.ForegroundColor = ConsoleColor.White;
     ConsoleKeyInfo key;
     key = Console.ReadKey();
-    // ex = Convert.ToString(Console.ReadLine());
-    if (key.Key != ConsoleKey.Y && key.Key != ConsoleKey.N)
+    if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape)
     {
         Console.Clear();
-        Console.WriteLine("Вы нажали не ту клавишу!");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("ОШИБКА!\n" +
+        "Вы нажали не ту клавишу." +
+        "Нажмите [ENTER] или [ESC].");
+        Console.ForegroundColor = ConsoleColor.White;
         goto AskAgayn;
     }
-    else if (key.Key == ConsoleKey.N) main();
-    else if (key.Key == ConsoleKey.Y) System.Environment.Exit(0);
+    else if (key.Key == ConsoleKey.Escape) main();
+    else if (key.Key == ConsoleKey.Enter)
+    {
+        Console.Clear();
+        System.Environment.Exit(0);
+    }
     else main();
 }
-
 
 // ==========================================================================
 
 
+
+// =========================== Домашнее задание ===========================
+
+
+
+// ==========================================================================
+
+// ВЫПОЛНЕНИЕ ПРОГРАММЫ И ОТСЛЕЖИВАНИЕ НАЖАТИЯ КЛАВИШ
 void main()
 {
     if (ex.ToLower() == "n")
@@ -144,4 +171,18 @@ void main()
     }
 }
 
-main();
+try
+{
+    main();
+}
+
+catch
+{
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("ОШИБКА!\n" +
+    "Неверный ввод данных.\n" +
+    "Программа будет перезапущена.");
+    Console.ForegroundColor = ConsoleColor.White;
+    pause();
+}
