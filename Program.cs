@@ -324,7 +324,7 @@ void main()
                     {
                         int ln = i + 1;
                         int number = res[i];
-                        Console.WriteLine($"    {ln}-е число ({Cub}) в кубе = {number}");
+                        Console.WriteLine($"    {ln}-е число ({ln}) в кубе = {number}");
                         i++;
                     }
                     Console.WriteLine("  ╚══════════════════════════════════╝\n");
